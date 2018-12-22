@@ -6,7 +6,7 @@ package com.ah.common;
 public class ApiPaths {
     public static final String GET_CUSTOMERS = "/customers";
     public static final String ADD_CUSTOMER = "/customer/add";
-    public static final String DELETE_CUSTOMER = "/customer/delete";
+    public static final String REMOVE_CUSTOMER = "/customer/remove/{id}";
     public static final String UPDATE_CUSTOMER = "/customer/update";
 
     public ApiPaths() {}

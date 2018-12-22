@@ -24,9 +24,8 @@ public class CustomerService {
         return repository.insert(customer);
     }
 
-    public void deleteCustomer(String firstName) {
-        Customer c = repository.findByFirstName(firstName);
-        repository.delete(c);
+    public void deleteCustomer(String id) {
+        repository.deleteById(id);
     }
 
     public Customer updateCustomer(Customer customer) {

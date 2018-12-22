@@ -2,11 +2,14 @@ package com.ah.customer.controller;
 
 import com.ah.common.ApiPaths;
 import com.ah.customer.entity.Customer;
+import com.ah.customer.entity.CustomerResponse;
 import com.ah.customer.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by Arlind Hoxha on 8/13/2018.
@@ -18,8 +21,12 @@ public class CustomerController {
     private CustomerService service;
 
     @RequestMapping(value = ApiPaths.GET_CUSTOMERS, method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllCustomers() {
-        return new ResponseEntity<>(service.getAllCustomers(), HttpStatus.OK);
+    public CustomerResponse getAllCustomers() {
+        List<Customer> customerList = service.getAllCustomers();
+        Customer[] customers = new Customer[customerList.size()];
+        customers = customerList.toArray(customers);
+
+        return new CustomerResponse(true, "success", customers);
     }
 
     @RequestMapping(value = ApiPaths.ADD_CUSTOMER, method = RequestMethod.POST)
@@ -27,9 +34,9 @@ public class CustomerController {
         return new ResponseEntity<>(service.addCustomer(customer), HttpStatus.OK);
     }
 
-    @RequestMapping(value = ApiPaths.DELETE_CUSTOMER, method = RequestMethod.DELETE)
-    public ResponseEntity<Object> deleteCustomer(@RequestParam String firstName) {
-        service.deleteCustomer(firstName);
+    @RequestMapping(value = ApiPaths.REMOVE_CUSTOMER, method = RequestMethod.DELETE)
+    public ResponseEntity<Object> deleteCustomer(@PathVariable("id") String id) {
+        service.deleteCustomer(id);
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
