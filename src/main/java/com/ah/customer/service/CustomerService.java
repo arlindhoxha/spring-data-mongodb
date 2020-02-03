@@ -13,8 +13,12 @@ import java.util.List;
 @Service
 public class CustomerService {
 
-    @Autowired
     private CustomerRepository repository;
+
+    @Autowired
+    public void setRepository(CustomerRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Customer> getAllCustomers() {
         return repository.findAll();

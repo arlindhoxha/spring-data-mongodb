@@ -17,8 +17,12 @@ import java.util.List;
 @RestController
 public class CustomerController {
 
-    @Autowired
     private CustomerService service;
+
+    @Autowired
+    public void setService(CustomerService service) {
+        this.service = service;
+    }
 
     @RequestMapping(value = ApiPaths.GET_CUSTOMERS, method = RequestMethod.GET)
     public CustomerResponse getAllCustomers() {
@@ -40,7 +44,7 @@ public class CustomerController {
         return new ResponseEntity<>(true, HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = ApiPaths.UPDATE_CUSTOMER, method = RequestMethod.POST)
+    @RequestMapping(value = ApiPaths.UPDATE_CUSTOMER, method = RequestMethod.PUT)
     public ResponseEntity<Object> updateCustomer(@RequestBody Customer customer) {
         return new ResponseEntity<>(service.updateCustomer(customer), HttpStatus.OK);
     }
